@@ -25,7 +25,7 @@ router.post('/register',async(
 })
 
 
-//
+//להשים עוקב
 router.post('/follow',async(
     req:Request,
     res:Response
@@ -72,7 +72,7 @@ router.get('/search',async(
 
 
 //
-
+// protected rout
 router.get('/profile',async(
     req:Request,
     res:Response
@@ -97,6 +97,7 @@ router.get('/profile',async(
 
 
 //
+// protected rout
 router.get('/followers',async(
     req:Request,
     res:Response
@@ -120,6 +121,7 @@ router.get('/followers',async(
 
 
 //
+// protected rout
 router.get('/following',async(
     req:Request,
     res:Response

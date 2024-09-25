@@ -28,6 +28,7 @@ router.get('/',async(
 
 
 // יצירת פוסט חדש
+// protected rout
 router.post('/',async(
     req:Request,
     res:Response
@@ -95,7 +96,7 @@ router.get('/:id',async(
 })
 
 
-
+// protected rout
 router.patch('/like/:id',async(
     req:Request,
     res:Response
@@ -116,10 +117,6 @@ router.patch('/like/:id',async(
 
     }
 })
-
-
-
-
 
 
 

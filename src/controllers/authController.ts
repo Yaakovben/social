@@ -22,7 +22,7 @@ router.post('/login',async(
     }
 })
 
-
+// protected rout
 router.delete('/logout',async(
     req:Request,
     res:Response

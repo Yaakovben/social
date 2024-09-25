@@ -14,7 +14,7 @@ app.use('/post',postController)
 
 
 
-app.listen(process.env.PORT,():void => console.log(`See you at http::localhost:${process.env.PORT}`));
+app.listen(process.env.PORT,():void => console.log(`See you at http:localhost:${process.env.PORT}`));
 
 
 

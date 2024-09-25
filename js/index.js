@@ -1,11 +1,16 @@
-import exp from 'express';
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
 //
-import 'dotenv/config';
-import authController from './controllers/authController';
-import postController from './controllers/postController';
-import userController from './controllers/userController';
-const app = exp();
-app.use('/auth', authController);
-app.use('/user', userController);
-app.use('/post', postController);
-app.listen(process.env.PORT, () => console.log(`See you at http::localhost:${process.env.PORT}`));
+require("dotenv/config");
+const authController_1 = __importDefault(require("./controllers/authController"));
+const postController_1 = __importDefault(require("./controllers/postController"));
+const userController_1 = __importDefault(require("./controllers/userController"));
+const app = (0, express_1.default)();
+app.use('/auth', authController_1.default);
+app.use('/user', userController_1.default);
+app.use('/post', postController_1.default);
+app.listen(process.env.PORT, () => console.log(`See you at http:localhost:${process.env.PORT}`));
