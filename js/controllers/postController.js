@@ -18,11 +18,17 @@ const router = express_1.default.Router();
 //קבלת כל הפוסטים
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.status(200).json({
-            err: false,
-            message: 'This is very GOOD',
-            Date: undefined
-        });
+        const result = yield postService_1.default.getAllPost();
+        if (result) {
+            res.status(200).json({
+                err: false,
+                message: 'This is all Posts',
+                Data: result,
+            });
+        }
+        else {
+            throw new Error("Can't give the posts");
+        }
     }
     catch (err) {
         res.status(400).json({
@@ -59,28 +65,35 @@ router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 //
 router.get('/search', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const result = yield postService_1.default.getPostByTextContent(req.query.content);
+        if (!result) {
+            throw new Error();
+        }
         res.status(200).json({
             err: false,
-            message: 'This is very GOOD',
-            Date: undefined
+            message: 'This is the posts',
+            Data: result
         });
     }
     catch (err) {
         res.status(400).json({
             err: true,
-            message: 'This NO good',
-            data: null
+            message: 'undefined',
+            data: undefined
         });
     }
 }));
 // ID חיפוש פוסט לפי 
 router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.status(200).json({
-            err: false,
-            message: 'This is very GOOD',
-            Date: undefined
-        });
+        const result = yield postService_1.default.getPostById(req.params.id);
+        if (result) {
+            res.status(200).json({
+                err: false,
+                message: 'This is the Post',
+                Date: result
+            });
+        }
     }
     catch (err) {
         res.status(400).json({
@@ -105,6 +118,52 @@ router.patch('/like/:id', (req, res) => __awaiter(void 0, void 0, void 0, functi
             err: true,
             message: 'This NO good',
             data: null
+        });
+    }
+}));
+//ID מחיקת פוסט על ידי 
+router.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const deletPost = yield postService_1.default.getPostById(req.params.id);
+        yield postService_1.default.removePostById(req.params.id);
+        res.status(200).json({
+            err: false,
+            message: 'This is very GOOD',
+            Date: deletPost
+        });
+    }
+    catch (err) {
+        res.status(400).json({
+            err: true,
+            message: 'This NO good',
+            data: null
+        });
+    }
+}));
+// עריכת פוסט
+router.patch('/patch/:id/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const updatedPost = yield postService_1.default.updatePostContent(req.params.id, req.body.content);
+        if (updatedPost) {
+            res.status(200).json({
+                err: false,
+                message: 'Post content updated successfully',
+                Data: updatedPost
+            });
+        }
+        else {
+            res.status(404).json({
+                err: true,
+                message: 'Post not found',
+                Data: null
+            });
+        }
+    }
+    catch (error) {
+        res.status(400).json({
+            err: true,
+            message: 'Error updating post content',
+            Data: null
         });
     }
 }));

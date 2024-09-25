@@ -2,13 +2,16 @@ import fs from 'fs/promises'
 
 // ייבוא
 export const getFileData =async <T> (resours:string):Promise<T[] | void> =>{
-    try {
-        const strData = await fs.readFile(`${__dirname}/../../data/${resours}.json`,'utf-8')
-        const parsedata:T[] = JSON.parse(strData)
-        return parsedata
-    } catch (err) {
-        console.log(err);       
-    }
+  try {
+    const strData = await fs.readFile(
+      `${__dirname}/../../data/${resours}.json`,
+      "utf-8"
+    );
+    const parsedata: T[] = JSON.parse(strData);
+    return parsedata;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 // שמירה 
