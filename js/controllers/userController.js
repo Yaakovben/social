@@ -13,19 +13,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const userService_1 = __importDefault(require("../services/userService"));
 const router = express_1.default.Router();
+// הרשמה למשתמש חדש
 router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.status(200).json({
-            err: false,
-            message: 'This is very GOOD',
-            Date: undefined
-        });
+        const result = yield userService_1.default.createNewUser(req.body);
+        if (result) {
+            res.status(200).json({
+                err: false,
+                message: 'This is very GOOD',
+                Date: undefined
+            });
+        }
+        else {
+            throw new Error("Can't Save New User to the file");
+        }
     }
     catch (err) {
         res.status(400).json({
             err: true,
-            message: 'This NO good',
+            message: err || '',
             data: null
         });
     }
@@ -47,7 +55,7 @@ router.post('/follow', (req, res) => __awaiter(void 0, void 0, void 0, function*
         });
     }
 }));
-///
+/// לחפש משתמש
 router.get('/search', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         res.status(200).json({
@@ -64,7 +72,7 @@ router.get('/search', (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
 }));
-//
+// הצגת פרופיל
 // protected rout
 router.get('/profile', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -82,7 +90,7 @@ router.get('/profile', (req, res) => __awaiter(void 0, void 0, void 0, function*
         });
     }
 }));
-//
+//הצגת אחרי מי אני עוקב
 // protected rout
 router.get('/followers', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -100,7 +108,7 @@ router.get('/followers', (req, res) => __awaiter(void 0, void 0, void 0, functio
         });
     }
 }));
-//
+//הצגת מי עוקב אחריי
 // protected rout
 router.get('/following', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

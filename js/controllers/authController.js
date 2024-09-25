@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
+// כניסת משתמש רשום
 router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         res.status(200).json({
@@ -30,6 +31,7 @@ router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
 }));
+// התנתקות מהחשבון למשתמש רשום
 // protected rout
 router.delete('/logout', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

@@ -1,23 +1,31 @@
 import exp, { Request, Response, Router } from 'express'
+import UserService from '../services/userService'
+import newUserDTO from '../DTO/newUserDto'
 const router:Router = exp.Router()
 
 
-
+// הרשמה למשתמש חדש
 router.post('/register',async(
-    req:Request,
+    req:Request<any, any,newUserDTO>,
     res:Response
 ):Promise<void> =>{
     try{
-        res.status(200).json({
-            err:false,
-            message:'This is very GOOD',
-            Date:undefined
-        })
+        const result = await UserService.createNewUser(req.body)
+        if(result){
+            res.status(200).json({
+                err:false,
+                message:'This is very GOOD',
+                Date:undefined
+            })
+        }else{
+            throw new Error("Can't Save New User to the file");
+            
+        }
 
     }catch(err){
         res.status(400).json({
             err:true,
-            message:'This NO good',
+            message:err|| '',
             data:null
         })
 
@@ -47,8 +55,7 @@ router.post('/follow',async(
     }
 })
 
-///
-
+/// לחפש משתמש
 router.get('/search',async(
     req:Request,
     res:Response
@@ -71,7 +78,7 @@ router.get('/search',async(
 })
 
 
-//
+// הצגת פרופיל
 // protected rout
 router.get('/profile',async(
     req:Request,
@@ -96,7 +103,7 @@ router.get('/profile',async(
 
 
 
-//
+//הצגת אחרי מי אני עוקב
 // protected rout
 router.get('/followers',async(
     req:Request,
@@ -120,7 +127,7 @@ router.get('/followers',async(
 })
 
 
-//
+//הצגת מי עוקב אחריי
 // protected rout
 router.get('/following',async(
     req:Request,

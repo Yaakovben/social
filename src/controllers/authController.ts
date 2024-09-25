@@ -1,6 +1,8 @@
 import exp, { Request, Response, Router } from 'express'
 const router:Router = exp.Router()
 
+
+// כניסת משתמש רשום
 router.post('/login',async(
     req:Request,
     res:Response
@@ -22,6 +24,7 @@ router.post('/login',async(
     }
 })
 
+// התנתקות מהחשבון למשתמש רשום
 // protected rout
 router.delete('/logout',async(
     req:Request,

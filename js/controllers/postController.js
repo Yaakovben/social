@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const postService_1 = __importDefault(require("../services/postService"));
 const router = express_1.default.Router();
 //קבלת כל הפוסטים
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -35,11 +36,17 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 // protected rout
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.status(200).json({
-            err: false,
-            message: 'This is very GOOD',
-            Date: undefined
-        });
+        const result = yield postService_1.default.createNewPost(req.body);
+        if (result) {
+            res.status(200).json({
+                err: false,
+                message: 'Post saved sucssesfuly',
+                Date: undefined
+            });
+        }
+        else {
+            throw new Error("Can't Save New Post to the file");
+        }
     }
     catch (err) {
         res.status(400).json({
@@ -66,7 +73,7 @@ router.get('/search', (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
 }));
-//
+// ID חיפוש פוסט לפי 
 router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         res.status(200).json({
@@ -83,7 +90,8 @@ router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
     }
 }));
-// protected rout
+// להשים לייק לפוסט
+// protected rout..
 router.patch('/like/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         res.status(200).json({

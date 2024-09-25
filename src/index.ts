@@ -7,6 +7,9 @@ import userController from './controllers/userController'
 
 const app:Express = exp()
 
+
+app.use(exp.json())
+
 app.use('/auth',authController)
 app.use('/user',userController)
 app.use('/post',postController)
